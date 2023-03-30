@@ -1,7 +1,6 @@
 import os
 import pygame
 import cars_module
-import time
 
 # create a player sprite class
 class Player(pygame.sprite.Sprite):
