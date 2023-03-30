@@ -5,7 +5,6 @@ import player
 import enemy
 import camera
 import sys
-import menu
 
 # initialize pygame, create a screen and set its size to 640x640
 # set window caption 
@@ -78,7 +77,6 @@ while True:
     all_sprites.draw(screen)
     all_sprites.update() 
     pygame.display.flip()    
-    pygame.display.update()
     clock.tick(28)
     
     
