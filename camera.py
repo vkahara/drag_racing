@@ -5,8 +5,9 @@ class Camera(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(os.path.join("images", "background.png"))
+        self.image = pygame.transform.scale(self.image, (640,10000))
         self.rect = self.image.get_rect()
-        self.rect.center = (320, -300)
+        self.rect.center = (320, -4300)
         self.camera_y = 0
         
     def control(self, speed):

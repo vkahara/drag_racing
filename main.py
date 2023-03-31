@@ -54,17 +54,12 @@ def start_menu():
                         car_preview = car_preview - (len(cars_module.cars_dict)-1)
                         
                 if event.key == pygame.K_LEFT:
-                    print((len(cars_module.cars_dict)-1))
-                    print(car_preview)
-                    
                     car_preview -= 1
                     if car_preview < 0:
                         car_preview = car_preview + (len(cars_module.cars_dict)-1)
                     
                 if event.key == pygame.K_RETURN:   
-                    print("test") 
                     chosen_car = cars_module.get_car_key(car_preview)
-                    print(chosen_car)
                     return
                 
         car_preview_image = pygame.image.load((os.path.join("images", cars_module.cycle_images(car_preview))))
@@ -87,7 +82,13 @@ def mainloop():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:        
                     player.control(player.get_speed())
-                    camera.control(player.get_speed() * 10)
+                    camera.control(player.get_speed() * 35)
+                    
+            #if player.get_y() <= 300:
+                #draw_text(("GAME OVER!"), big_font, (0,0,0), screen, 320 , 320)
+                #draw_text("press any button to try again", small_font, (0,0,0), screen, 320, 200)
+                #if event.type == pygame.KEYDOWN:
+                 #   return
             
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP:
@@ -101,7 +102,9 @@ def mainloop():
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
                     player.set_nitrous_on(False)
-                            
+                    
+        
+        print(player.get_y())                    
         screen.fill((33,170,33))
         all_sprites.draw(screen)
         all_sprites.update() 
@@ -110,7 +113,7 @@ def mainloop():
     
 
 start_menu() # run start_menu loop
-print(chosen_car)
+
 # create instance of player, player takes position and global variable chosen car
 # player selects instance of car from cars_module based on chosen car variable
 player = player.Player((220, 550), chosen_car)

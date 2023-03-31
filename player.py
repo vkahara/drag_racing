@@ -35,6 +35,8 @@ class Player(pygame.sprite.Sprite):
         
     def set_nitrous_on(self, set_nitrous_on):
             self.nitrous_on = set_nitrous_on
+            
+    
         
     def update(self):
         self.rect.y = self.rect.y + self.movey
