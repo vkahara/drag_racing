@@ -27,6 +27,8 @@ class Player(pygame.sprite.Sprite):
         self.movey = 0
         self.nitrous_duration = getattr(self.chosen_car, "nitrous_duration")
         self.nitrous_on = False
+        self.make = getattr(self.chosen_car, "make")
+        self.model = getattr(self.chosen_car, "model")
            
     def control(self, speed):
         self.movey = - speed
@@ -43,10 +45,11 @@ class Player(pygame.sprite.Sprite):
             self.nitrous_duration -= 1
         
             
-        
     def get_speed(self):
         return self.speed
     
     def get_y(self):
         return self.rect.y
     
+    def get_car_name(self):
+        return self.make + " " + self.model
