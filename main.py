@@ -30,20 +30,17 @@ def draw_text(text, font, color, surface, x, y):
 #start menu function contains start menu as a separate game loop
 #start menu draws text and menu background to screen
 #start menu is used to select player car
-
 def start_menu():
     car_preview = 0
     car_preview_image = pygame.image.load((os.path.join("images", "ford_scorpio.png")))
-    car_preview_image = pygame.transform.scale(car_preview_image, (84,177))
+    car_preview_image = pygame.transform.scale(car_preview_image, (168,354))
     while True:
         for event in pygame.event.get():
             global chosen_car #global variable chosen car is assigned value in the menu
-            
             garage_background = pygame.image.load(os.path.join("images", "garage_background.png"))
             garage_background = pygame.transform.scale(garage_background, (640,640))
             screen.blit(garage_background, (0,0))
-    
-            draw_text("select car", big_font, (0,0,0), screen, 200 , 200)
+            draw_text("select car", big_font, (0,0,0), screen, 215 , 530)
             
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -55,6 +52,14 @@ def start_menu():
                         car_preview += 1
                     else:
                         car_preview = car_preview - (len(cars_module.cars_dict)-1)
+                        
+                if event.key == pygame.K_LEFT:
+                    print((len(cars_module.cars_dict)-1))
+                    print(car_preview)
+                    
+                    car_preview -= 1
+                    if car_preview < 0:
+                        car_preview = car_preview + (len(cars_module.cars_dict)-1)
                     
                 if event.key == pygame.K_RETURN:   
                     print("test") 
@@ -63,14 +68,48 @@ def start_menu():
                     return
                 
         car_preview_image = pygame.image.load((os.path.join("images", cars_module.cycle_images(car_preview))))
-        car_preview_image = pygame.transform.scale(car_preview_image, (84,177))        
-        screen.blit(car_preview_image, (320, 320))      
+        car_preview_image = pygame.transform.scale(car_preview_image, (168,354))       
         
-        draw_text((cars_module.cycle_names(car_preview)), small_font, (0,0,0), screen, 260, 550)
+        screen.blit(car_preview_image, (235, 150))      
+        
+        draw_text((cars_module.cycle_names(car_preview)), small_font, (0,0,0), screen, 260, 570)
         pygame.display.update()
         clock.tick(15)
+        
+def mainloop():
+    while True:
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:        
+                    player.control(player.get_speed())
+                    camera.control(player.get_speed() * 10)
+            
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_UP:
+                    player.control(0)
+                    camera.control(0)
+                    
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:        
+                    player.set_nitrous_on(True)
+                    
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_SPACE:
+                    player.set_nitrous_on(False)
+                            
+        screen.fill((33,170,33))
+        all_sprites.draw(screen)
+        all_sprites.update() 
+        pygame.display.flip()    
+        clock.tick(28)
+    
 
-start_menu()
+start_menu() # run start_menu loop
 print(chosen_car)
 # create instance of player, player takes position and global variable chosen car
 # player selects instance of car from cars_module based on chosen car variable
@@ -82,40 +121,9 @@ all_sprites = pygame.sprite.RenderPlain()
 all_sprites.add(camera)
 all_sprites.add(player)
 all_sprites.add(enemy)
+mainloop() # run main loop
 
 
-
-while True:
-    events = pygame.event.get()
-    for event in events:
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-            
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:        
-                player.control(player.get_speed())
-                camera.control(player.get_speed() * 10)
-        
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_UP:
-                player.control(0)
-                camera.control(0)
-                
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:        
-                player.set_nitrous_on(True)
-                
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_SPACE:
-                player.set_nitrous_on(False)
-                          
-    screen.fill((33,170,33))
-    all_sprites.draw(screen)
-    all_sprites.update() 
-    pygame.display.flip()    
-    clock.tick(28)
-    
     
             
 

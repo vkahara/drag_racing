@@ -29,7 +29,6 @@ def cycle_images(ID):
 #create list from dictionary keys and return dictionary key based on inputted ID
 def get_car_key(ID):
     keys_list = list(cars_dict.keys())
-    print(keys_list)
     for key in cars_dict.values():
         if key.ID == ID:
             return keys_list[ID]
