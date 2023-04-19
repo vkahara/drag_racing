@@ -92,9 +92,10 @@ def mainloop():
     pygame.display.update()
     pygame.time.wait(3000)
     
-    draw_text("go", big_font, (0,0,0), screen, 320 , 250)
+    draw_text("GO", big_font, (0,0,0), screen, 320 , 240)
     pygame.display.update()
-    pygame.time.wait(3000)
+    pygame.time.wait(800)
+    race_start = True
     
     
 
@@ -109,11 +110,19 @@ def mainloop():
                     player.control(player.get_speed())
                     camera.control(player.get_speed() * 35)
                     
-            #if player.get_y() <= 300:
-                #draw_text(("GAME OVER!"), big_font, (0,0,0), screen, 320 , 320)
-                #draw_text("press any button to try again", small_font, (0,0,0), screen, 320, 200)
-                #if event.type == pygame.KEYDOWN:
-                 #   return
+            if player.get_y() <= 300:
+                draw_text(("GAME OVER!"), big_font, (0,0,0), screen, 320 , 320)
+                draw_text("press any button to try again", small_font, (0,0,0), screen, 320, 200)
+                pygame.display.flip()
+                waiting = True
+                while waiting:
+                    clock.tick(30)
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            pygame.quit()
+                        if event.type == pygame.KEYUP:
+                            waiting = False
+                            
             
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP:

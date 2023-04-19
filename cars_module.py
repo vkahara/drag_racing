@@ -4,8 +4,8 @@ ford_scorpio = car.Car(0, "Ford", "Scorpio", 1, 20, "ford_scorpio.png")
 mitsubishi_evo = car.Car(1, "Mitshubishi", "Lancer Evo VI", 3, 10, "mitsubishi_evo.png")
 toyota_supra = car.Car(2, "Toyota", "Supra", 5, 10, "meitsi.jpg")
 volkswagen_golf = car.Car(3, "Volkswagen", "Golf", 2, 15, "volkswagen_golf.png")
-jumitus_auto = car.Car(4, "Nissan", "Almera", 1, 5, "jumi.png")
-#haloohaloo test test
+jumitus_auto = car.Car(4, "Nissan", "Almera", 1, 10, "jumi.png")
+
 
 cars_dict = {
     "ford_scorpio": ford_scorpio,
