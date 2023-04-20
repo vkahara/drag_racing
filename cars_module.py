@@ -1,5 +1,6 @@
 import car
 
+#player class has attributes ID,  make, model, speed, nitrous_duration, image
 ford_scorpio = car.Car(0, "Ford", "Scorpio", 1, 20, "ford_scorpio.png")
 mitsubishi_evo = car.Car(1, "Mitshubishi", "Lancer Evo VI", 3, 10, "mitsubishi_evo.png")
 toyota_supra = car.Car(2, "Toyota", "Supra", 5, 10, "meitsi.jpg")
