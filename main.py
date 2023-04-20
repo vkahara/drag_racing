@@ -5,6 +5,7 @@ import player
 import enemy
 import camera
 import cars_module
+import goal
 import sys
 import os
 
@@ -13,7 +14,6 @@ import os
 pygame.init()
 screen = pygame.display.set_mode((640, 640))
 pygame.display.set_caption("Drag Racing!")
-
 clock = pygame.time.Clock()
 
 # define small and big fonts and set them to system default font
@@ -83,81 +83,76 @@ def start_menu():
 def mainloop():
     all_sprites.draw(screen)
 
-    draw_text("Ready", big_font, (0,0,0), screen, 320 , 320)
+    draw_text("Ready", big_font, (0, 0, 0), screen, 320, 320)
     pygame.display.update()
     pygame.time.wait(3000)
 
-    draw_text("Set", big_font, (0,0,0), screen, 320 , 280)
+    draw_text("Set", big_font, (0, 0, 0), screen, 320, 280)
     pygame.display.update()
     pygame.time.wait(3000)
-    
-    draw_text("go", big_font, (0,0,0), screen, 320 , 250)
-    pygame.display.update()
-    pygame.time.wait(1000)    
 
+    draw_text("go", big_font, (0, 0, 0), screen, 320, 250)
+    pygame.display.update()
+    pygame.time.wait(1000)
+
+    game_over = False
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
-            if player.get_y() > 480:
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_UP:     
-                        player.control(player.get_speed())
-                        
-            else: 
-                if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_UP:
-                            camera.control(player.get_speed() * 35)
-                    
-            #if player.get_y() <= 300:
-                #draw_text(("GAME OVER!"), big_font, (0,0,0), screen, 320 , 320)
-                #draw_text("press any button to try again", small_font, (0,0,0), screen, 320, 200)
-                #if event.type == pygame.KEYDOWN:
-                 #   return
-            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    player.control(player.get_speed())
+                    camera.control(player.get_speed() * 35)
+                    goal.control(player.get_speed())
+
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP:
                     player.control(0)
                     camera.control(0)
-                    
+                    goal.control(0)
+
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:        
+                if event.key == pygame.K_SPACE:
                     player.set_nitrous_on(True)
-                    
+
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
                     player.set_nitrous_on(False)
-                    
-            
-                break
-        
-        
-        print(player.get_y())
-        all_sprites.draw(screen)
-        all_sprites.update() 
-        pygame.display.flip()                        
-        clock.tick(28)
-    
 
-start_menu() # run start_menu loop
+        # check if player touches goal line
+        if player.rect.colliderect(goal.rect):
+            game_over = True
+
+        if game_over:
+            draw_text(("GAME OVER!"), big_font, (0, 0, 0), screen, 240, 240)
+            draw_text(("Game closes automatically in 5 seconds!"),
+                      small_font, (0, 0, 0), screen, 180, 320)
+
+            pygame.display.update()
+            pygame.time.wait(5000)
+            pygame.quit()
+
+        all_sprites.draw(screen)
+        all_sprites.update()
+        pygame.display.flip()
+        clock.tick(28)
+
+
+start_menu()  # run start_menu loop
 
 # create instance of player, player takes position and global variable chosen car
 # player selects instance of car from cars_module based on chosen car variable
 player = player.Player((220, 550), chosen_car)
 camera = camera.Camera()
+goal = goal.Goal()
 enemy = enemy.Enemy((420, 550), "ford_scorpio")
 
 all_sprites = pygame.sprite.RenderPlain()
 all_sprites.add(camera)
+all_sprites.add(goal)
 all_sprites.add(player)
 all_sprites.add(enemy)
-mainloop() # run main loop
-
-
-    
-            
-
-
-        
+mainloop()  # run main loop
