@@ -81,7 +81,6 @@ def start_menu():
 
 
 def mainloop():
-    race_start = False
     all_sprites.draw(screen)
 
     draw_text("Ready", big_font, (0,0,0), screen, 320 , 320)
@@ -94,21 +93,23 @@ def mainloop():
     
     draw_text("go", big_font, (0,0,0), screen, 320 , 250)
     pygame.display.update()
-    pygame.time.wait(3000)
-    
-    
+    pygame.time.wait(1000)    
 
-    while race_start:
+    while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:        
-                    player.control(player.get_speed())
-                    if player.get_y() < 480:
-                        camera.control(player.get_speed() * 35)
+            if player.get_y() > 480:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_UP:     
+                        player.control(player.get_speed())
+                        
+            else: 
+                if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_UP:
+                            camera.control(player.get_speed() * 35)
                     
             #if player.get_y() <= 300:
                 #draw_text(("GAME OVER!"), big_font, (0,0,0), screen, 320 , 320)
@@ -129,12 +130,14 @@ def mainloop():
                 if event.key == pygame.K_SPACE:
                     player.set_nitrous_on(False)
                     
-
-        print(player.get_y())
+            
+                break
         
-        pygame.display.flip()                        
+        
+        print(player.get_y())
         all_sprites.draw(screen)
         all_sprites.update() 
+        pygame.display.flip()                        
         clock.tick(28)
     
 
