@@ -30,6 +30,7 @@ class Player(pygame.sprite.Sprite):
         self.make = getattr(self.chosen_car, "make")
         self.model = getattr(self.chosen_car, "model")
            
+    # set players movey value to speed of the instance of car class
     def control(self, speed):
         self.movey = - speed
         
@@ -37,7 +38,7 @@ class Player(pygame.sprite.Sprite):
             self.nitrous_on = set_nitrous_on
             
     
-        
+    #update player position. if nitrous is one 
     def update(self):
         self.rect.y = self.rect.y + self.movey
         if self.nitrous_on and (self.nitrous_duration > 1):
@@ -46,12 +47,13 @@ class Player(pygame.sprite.Sprite):
             print(self.nitrous_duration)
             self.nitrous_duration -= 1
         
-            
+    #return the speed value of the instance of car class
     def get_speed(self):
         return self.speed
     
     def get_y(self):
         return self.rect.y
     
+    #return car make + model for menu
     def get_car_name(self):
         return self.make + " " + self.model

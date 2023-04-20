@@ -82,7 +82,8 @@ def mainloop():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:        
                     player.control(player.get_speed())
-                    camera.control(player.get_speed() * 35)
+                    if player.get_y() < 480:
+                        camera.control(player.get_speed() * 35)
                     
             #if player.get_y() <= 300:
                 #draw_text(("GAME OVER!"), big_font, (0,0,0), screen, 320 , 320)

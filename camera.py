@@ -1,6 +1,7 @@
 import pygame
 import os
 
+
 class Camera(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -11,7 +12,7 @@ class Camera(pygame.sprite.Sprite):
         self.camera_y = 0
         
     def control(self, speed):
-        self.camera_y = speed
+            self.camera_y = speed
         
-    def update(self):
+    def update(self): 
         self.rect.y = self.rect.y + self.camera_y
