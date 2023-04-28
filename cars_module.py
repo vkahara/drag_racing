@@ -17,6 +17,7 @@ cars_dict = {
 }
 
 
+#menu functions to help choose the car
 def choose_car(chosen_car):
     return cars_dict[chosen_car]
 

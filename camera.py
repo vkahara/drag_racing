@@ -1,6 +1,7 @@
 import pygame
 import os
 
+#move camera in sync with goal line when player moves
 
 class Camera(pygame.sprite.Sprite):
     def __init__(self):

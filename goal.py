@@ -1,6 +1,9 @@
 import pygame
 import os
 
+# create class Goal
+# set goal image and initial position
+# the goal moves downwards when player moves forward in sync with background
 
 class Goal(pygame.sprite.Sprite):
     def __init__(self):
