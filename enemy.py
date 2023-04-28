@@ -27,6 +27,8 @@ class Enemy(pygame.sprite.Sprite):
         self.nitrous_duration = getattr(self.chosen_car, "nitrous_duration")
         
         
+
+    # move the enemy
     def update(self):
         self.rect.y = self.rect.y - self.speed
 
