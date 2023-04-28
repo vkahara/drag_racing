@@ -83,15 +83,15 @@ def start_menu():
 def mainloop():
     all_sprites.draw(screen)
 
-    draw_text("Ready", big_font, (0, 0, 0), screen, 320, 320)
+    draw_text("Ready", big_font, (255, 0, 0), screen, 250, 240)
     pygame.display.update()
     pygame.time.wait(3000)
 
-    draw_text("Set", big_font, (0, 0, 0), screen, 320, 280)
+    draw_text("Set", big_font, (255, 255, 0), screen, 250, 280)
     pygame.display.update()
     pygame.time.wait(3000)
 
-    draw_text("go", big_font, (0, 0, 0), screen, 320, 250)
+    draw_text("go", big_font, (0, 180, 0), screen, 250, 320)
     pygame.display.update()
     pygame.time.wait(1000)
 
@@ -127,9 +127,9 @@ def mainloop():
             game_over = True
 
         if game_over:
-            draw_text(("GAME OVER!"), big_font, (0, 0, 0), screen, 240, 240)
+            draw_text(("GAME OVER!"), big_font, (0, 0, 255), screen, 240, 240)
             draw_text(("Game closes automatically in 5 seconds!"),
-                      small_font, (0, 0, 0), screen, 180, 320)
+                      small_font, (0, 200, 0), screen, 180, 320)
 
             pygame.display.update()
             pygame.time.wait(5000)
